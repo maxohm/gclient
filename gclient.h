@@ -1,6 +1,8 @@
 #ifndef GCLIENT_H
 #define GCLIENT_H
-
+//
+#include "msock.h"
+//
 #include <QMainWindow>
 #include <QTcpSocket>
 
@@ -17,17 +19,18 @@ public:
     ~gclient();
 
 private slots:
-    void on_pushButton_clicked();
+    void on_pushButton_1_clicked();
     void on_pushButton_2_clicked();
     void on_pushButton_3_clicked();
     void on_pushButton_4_clicked();
     //
     void log(QString s);
+    void monitor();
 
 private:
     Ui::gclient *ui;
     //
-    QTcpSocket* sock;  // Массив сокетов
+    msock* sock;  // Массив сокетов
 
 };
 

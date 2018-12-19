@@ -9,9 +9,17 @@ gclient::gclient(QWidget *parent) :
 {
     ui->setupUi(this);
     //
-    sock = new QTcpSocket(this);
-    sock->connectToHost("127.0.0.1",2000);
+    sock = new msock();
+    QStringList* h = new QStringList(
+                sock->state.split("|")
+                );
 
+    sock->sock->connectToHost(h->at(0),h->at(1).toInt());
+
+    connect(sock->ticker, SIGNAL(timeout()), this, SLOT(monitor()));
+    //
+    log("gclient::gclient sock->sock->state() = ");
+    log(sstate[sock->sock->state()]);
 
 }
 
@@ -20,6 +28,25 @@ gclient::~gclient()
     delete ui;
 }
 
+
+void gclient::monitor()
+{
+
+    QStringList* h = new QStringList(
+                sock->state.split("|")
+                );
+    //
+    if (QTcpSocket::ConnectedState!=sock->sock->state()){
+        sock->sock->connectToHost(
+                    h->at(0),
+                    h->at(1).toInt()
+                    );
+    };
+    //
+    sock->state = h->at(0) + "|" + h->at(1) + "|" + sstate[sock->sock->state()];
+    log("gclient::gclient sock->state = ");
+    log(sock->state);
+}
 
 void gclient::log(QString s)
 {
@@ -34,7 +61,7 @@ void gclient::log(QString s)
     ui->log->resizeColumnsToContents();
 }
 
-void gclient::on_pushButton_clicked()
+void gclient::on_pushButton_1_clicked()
 {
 
 }
