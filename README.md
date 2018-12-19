@@ -1,2 +1,1 @@
-# gclient
 GAMMA TEST CLIENT
