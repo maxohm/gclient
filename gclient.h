@@ -2,6 +2,7 @@
 #define GCLIENT_H
 
 #include <QMainWindow>
+#include <QTcpSocket>
 
 namespace Ui {
 class gclient;
@@ -17,20 +18,16 @@ public:
 
 private slots:
     void on_pushButton_clicked();
-
     void on_pushButton_2_clicked();
-
     void on_pushButton_3_clicked();
-
     void on_pushButton_4_clicked();
+    //
+    void log(QString s);
 
 private:
     Ui::gclient *ui;
     //
-#ifdef HAVE_QT5
-    QMap<int, QString> states;		// Массив параметров хостов для обмена
-    QMap<int, QTcpSocket*> socket;  // Массив сокетов
-#endif
+    QTcpSocket* sock;  // Массив сокетов
 
 };
 

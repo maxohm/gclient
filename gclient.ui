@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>396</width>
+    <width>714</width>
     <height>392</height>
    </rect>
   </property>
@@ -17,10 +17,10 @@
    <widget class="QFrame" name="frame">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>40</y>
-      <width>361</width>
-      <height>80</height>
+      <x>10</x>
+      <y>0</y>
+      <width>691</width>
+      <height>51</height>
      </rect>
     </property>
     <property name="frameShape">
@@ -58,8 +58,8 @@
     <widget class="QPushButton" name="pushButton_4">
      <property name="geometry">
       <rect>
-       <x>148</x>
-       <y>40</y>
+       <x>490</x>
+       <y>10</y>
        <width>191</width>
        <height>27</height>
       </rect>
@@ -71,8 +71,8 @@
     <widget class="QPushButton" name="pushButton_3">
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>40</y>
+       <x>340</x>
+       <y>10</y>
        <width>141</width>
        <height>27</height>
       </rect>
@@ -82,34 +82,11 @@
      </property>
     </widget>
    </widget>
-   <widget class="QLineEdit" name="lineEdit">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>0</y>
-      <width>361</width>
-      <height>27</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>127.0.0.1</string>
-    </property>
-   </widget>
-   <widget class="QTextEdit" name="textEdit">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>170</y>
-      <width>361</width>
-      <height>161</height>
-     </rect>
-    </property>
-   </widget>
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>140</y>
+      <x>10</x>
+      <y>70</y>
       <width>301</width>
       <height>17</height>
      </rect>
@@ -118,13 +95,62 @@
      <string> Поле для вывода сообщений от сервера</string>
     </property>
    </widget>
+   <widget class="QTableWidget" name="log">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>100</y>
+      <width>691</width>
+      <height>232</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="alternatingRowColors">
+     <bool>true</bool>
+    </property>
+    <property name="showGrid">
+     <bool>false</bool>
+    </property>
+    <attribute name="horizontalHeaderVisible">
+     <bool>false</bool>
+    </attribute>
+    <attribute name="horizontalHeaderHighlightSections">
+     <bool>false</bool>
+    </attribute>
+    <attribute name="horizontalHeaderStretchLastSection">
+     <bool>false</bool>
+    </attribute>
+    <attribute name="verticalHeaderVisible">
+     <bool>false</bool>
+    </attribute>
+    <attribute name="verticalHeaderHighlightSections">
+     <bool>false</bool>
+    </attribute>
+    <column>
+     <property name="text">
+      <string>Новый столбец</string>
+     </property>
+    </column>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>396</width>
+     <width>714</width>
      <height>25</height>
     </rect>
    </property>
