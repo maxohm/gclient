@@ -26,6 +26,8 @@ private slots:
     //
     void log(QString s);
     void monitor();
+    void rx();
+    void tx(QString s);
 
 private:
     Ui::gclient *ui;
