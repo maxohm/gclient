@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>gclient</string>
   </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>g.png</normaloff>g.png</iconset>
+  </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QFrame" name="frame">
     <property name="geometry">

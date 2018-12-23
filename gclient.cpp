@@ -10,22 +10,17 @@ gclient::gclient(QWidget *parent) :
     ui->setupUi(this);
     //
     sock = new msock();
+    sock->sock = new QTcpSocket();
     QStringList* h = new QStringList(
                 sock->state.split("|")
                 );
-
     sock->sock->connectToHost(
                 h->at(0),
                 h->at(1).toInt()
                 );
-
-    connect(sock->ticker, SIGNAL(timeout()), this, SLOT(monitor()));
-    //connect(socket[j], SIGNAL(connected()), SLOT(slotConnected()));
+    //connect(sock->ticker, SIGNAL(timeout()), this, SLOT(monitor()));
     connect(sock->sock, SIGNAL(readyRead()), this, SLOT(rx()));
-    //
-    log("gclient::gclient sock->sock->state() = ");
-    log(QString::number(sock->sock->state()));
-    //log(sstate[sock->sock->state()]);
+    connect(this->ui->log->model(), SIGNAL(rowsInserted(const QModelIndex &, int, int)), this->ui->log, SLOT(scrollToBottom()));
 }
 
 gclient::~gclient()
@@ -44,8 +39,55 @@ void gclient::tx(QString s)
 void gclient::rx()
 {
     QString s = sock->rx();
-    log("gclient::rx() "+s+" state "+QString::number(sock->sock->state()));
-    this->sock->state = s;
+    //log("gclient::rx() received "+s);
+    //
+    QStringList* h = new QStringList(
+                s.split("|")
+                );
+    QString _st;
+    switch(h->length()){
+    case 3:
+        _st = pdesc.value(
+                    h->at(2).toInt()
+                    );
+
+        if (_st.isEmpty() || _st.isNull()){
+            log("Клиент получил ошибочные данные. Обработка прервана.");
+            return;
+        };
+
+        this->setWindowTitle("GCLIENT ID "+h->at(1));
+        log("Клиент ID ["+h->at(1)+"] состояние ["+_st+"]");
+        sock->state = s;
+
+        break;
+    case 4:
+        if ("9"==h->at(3))
+            return log("Ожидание изменения состояния клиента ["+h->at(1)+"]");
+
+        if ("8"==h->at(3)){
+            log("Смена состояния клиента ["+h->at(1)+"] на запрошенное ");
+            return log("не возможна из состояния ["+pdesc.value(
+                    h->at(2).toInt()
+                    )+"]");
+        };
+
+        _st = pdesc.value(
+                    h->at(3).toInt()
+                    );
+
+        if (_st.isEmpty() || _st.isNull()){
+            log("Клиент получил ошибочные данные. Обработка прервана.");
+            return;
+        };
+
+        log("Запрос на изменение состояния клиента ["+h->at(1)+"] принят");
+
+        break;
+    default:
+        log("Клиент получил ошибочные данные. Обработка прервана.");
+        break;
+    }
 }
 
 void gclient::monitor()
@@ -88,21 +130,32 @@ void gclient::log(QString s)
 
 void gclient::on_pushButton_1_clicked()
 {
-    sock->tx("Initialize");
+    sock->tx(this->sock->state+"|"+QString::number(
+                   proto.indexOf("Initialize")
+                 )
+             );
 }
 
 void gclient::on_pushButton_2_clicked()
 {
-
-    sock->tx("ExeCommand");
+    sock->tx(this->sock->state+"|"+QString::number(
+                   proto.indexOf("ExeCommand")
+                 )
+             );
 }
 
 void gclient::on_pushButton_3_clicked()
 {
-    sock->tx("fufufufu");
+    sock->tx(this->sock->state+"|"+QString::number(
+                   proto.indexOf("GetResult")
+                 )
+             );
 }
 
 void gclient::on_pushButton_4_clicked()
 {
-    sock->tx("GetState");
+    sock->tx(this->sock->state+"|"+QString::number(
+                   proto.indexOf("GetState")
+                 )
+             );
 }
